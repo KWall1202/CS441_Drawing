@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Button drawButton = null;
     private boolean drawing = true;
     private int brushSize = 25;
-    private Color brushColor = null;
+    private int brushColor = 0;
     private LinearLayout canvasLayout = null;
 
     DrawSurface drawSurfaceView = null;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("CS441_Drawing");
         // Actual code down here
 
         initControls();
@@ -35,10 +36,17 @@ public class MainActivity extends AppCompatActivity {
         // Make app fullscreen (FROM SAMPLE)
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        drawSurfaceView = new DrawSurface(getApplicationContext());
+
+        drawSurfaceView.setOnTouchListener((View.OnTouchListener) this);
+
+        canvasLayout.addView(drawSurfaceView);
+
         eraseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 drawing = false;
+                drawSurfaceView.setColor(Color.TRANSPARENT);
             }
         });
 
@@ -46,16 +54,17 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
               drawing = true;
+              drawSurfaceView.setColor(brushColor);
           }
         });
     }
 
     private void initControls() {
         if(eraseButton == null)
-            eraseButton = (Button)findViewById(R.id.eraseButton);
+            eraseButton = findViewById(R.id.eraseButton);
         if(drawButton == null)
-            drawButton = (Button)findViewById(R.id.drawButton);
+            drawButton = findViewById(R.id.drawButton);
         if(canvasLayout == null)
-            canvasLayout = (LinearLayout)findViewById(R.id.canvasLayout);
+            canvasLayout = findViewById(R.id.canvasLayout);
     }
 }
