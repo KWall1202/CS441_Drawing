@@ -7,7 +7,8 @@ import android.widget.SeekBar;
 
 
 public class MainActivity extends AppCompatActivity {
-    private SeekBar seekBar = null;
+    private SeekBar slopeBar = null;
+    private SeekBar interceptBar = null;
     private DrawSurface customGraph = null;
 
     @Override
@@ -19,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         customGraph = new DrawSurface(getApplicationContext());
         layout.addView(customGraph);
 
-        seekBar = findViewById(R.id.seekBar);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        slopeBar = findViewById(R.id.mBar);
+        slopeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
@@ -34,8 +35,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 // TODO Auto-generated method stub
-                customGraph.setX(progress);
-                customGraph.setY(progress);
+                customGraph.setM(progress);
+                customGraph.draw();
+            }
+        });
+
+        interceptBar = findViewById(R.id.bBar);
+        interceptBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+                // TODO Auto-generated method stub
+                customGraph.setB(progress);
                 customGraph.draw();
             }
         });
