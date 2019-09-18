@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 // TODO Auto-generated method stub
                 customGraph.setM(progress);
+                TextView test = findViewById(R.id.testText);
+                test.setText(Integer.toString(progress));
                 customGraph.draw();
             }
         });
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 // TODO Auto-generated method stub
                 customGraph.setB(progress);
+                TextView test = findViewById(R.id.testText);
+                test.setText(Integer.toString(progress));
                 customGraph.draw();
             }
         });

@@ -48,7 +48,7 @@ public class DrawSurface extends SurfaceView implements SurfaceHolder.Callback {
 
         // Draw the circle.
         paint.setColor(Color.RED);
-        canvas.drawLine(0, b, this.getWidth(), this.getWidth() + this.getWidth()*m, paint);
+        canvas.drawLine(0, b, this.getWidth(), m*this.getWidth() + b, paint);
 
         // Unlock the canvas object and post the new draw.
         surfaceHolder.unlockCanvasAndPost(canvas);
@@ -56,10 +56,10 @@ public class DrawSurface extends SurfaceView implements SurfaceHolder.Callback {
 
 
     public void setM(float m) {
-        this.m = (float) (0.01 * m * this.getWidth());
+        this.m = (float)Math.atan(((-3*Math.PI/4) + 1.5*Math.PI*(m / 100)));
     }
     public void setB(float b) {
-        this.b = (float) (0.01 * b * this.getHeight());
+        this.b = b * this.getHeight() / 100;
     }
 
 }
