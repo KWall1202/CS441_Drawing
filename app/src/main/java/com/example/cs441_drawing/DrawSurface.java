@@ -10,7 +10,7 @@ import android.view.SurfaceHolder;
 public class DrawSurface extends SurfaceView implements SurfaceHolder.Callback {
     public SurfaceHolder surfaceHolder = null;
     private Paint paint = null;
-    private float m, b;
+    private float m, b, d;
 
     public DrawSurface(Context context) {
         super(context);
@@ -48,15 +48,19 @@ public class DrawSurface extends SurfaceView implements SurfaceHolder.Callback {
 
         // Draw the circle.
         paint.setColor(Color.RED);
-        canvas.drawLine(0, b, this.getWidth(), m*this.getWidth() + b, paint);
-
+        d = (float)Math.sqrt(Math.pow(this.getHeight()*2, 2) + Math.pow(this.getWidth()*2, 2));
+        float startX = (float)((this.getWidth() / 2) - d + (d - Math.cos(m)*d));
+        float startY = (float)((this.getHeight() / 2) - d + (d - Math.sin(m)*d));
+        float stopX = (float)((this.getWidth() / 2) + d - (d - Math.cos(m)*d));
+        float stopY = (float)((this.getHeight() / 2) + d - (d - Math.sin(m)*d));
+        canvas.drawLine(startX, startY + b, stopX, stopY + b, paint);
         // Unlock the canvas object and post the new draw.
         surfaceHolder.unlockCanvasAndPost(canvas);
     }
 
 
     public void setM(float m) {
-        this.m = (float)Math.atan(((-3*Math.PI/4) + 1.5*Math.PI*(m / 100)));
+        this.m = (float)(2*Math.PI*m / 100);
     }
     public void setB(float b) {
         this.b = b * this.getHeight() / 100;
